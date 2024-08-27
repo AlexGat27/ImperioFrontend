@@ -1,4 +1,4 @@
-import { useLoginMutation } from '@/utils/query-options'
+import { useLoginMutation } from '@/utils/query-options/auth.ts'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'

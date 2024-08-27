@@ -1,5 +1,5 @@
 import { Header } from '@/components/header'
-import { profileOptions } from '@/utils/query-options'
+import { profileOptions } from '@/utils/query-options/users.ts'
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_authenticated')({

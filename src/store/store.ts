@@ -32,7 +32,7 @@ export default class Store{
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
-        } catch (e) {
+        } catch (e: any) {
             console.log(e.response?.data?.message)
         }
     }
@@ -40,10 +40,11 @@ export default class Store{
     async logout() {
         try{
             const response = await AuthService.logout();
+            console.log(response)
             localStorage.removeItem('token');
             this.setAuth(false);
             this.setUser({} as IUser);
-        } catch (e) {
+        } catch (e: any) {
             console.log(e.response?.data?.message)
         }
     }
@@ -56,7 +57,7 @@ export default class Store{
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
-        } catch (e) {
+        } catch (e: any) {
             console.log(e.response?.data?.message)
         } finally {
             this.setLoading(false);

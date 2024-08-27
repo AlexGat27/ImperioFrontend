@@ -1,10 +1,8 @@
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from '@/components/ui/command'
@@ -15,7 +13,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 import {
   Form,
@@ -31,26 +28,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
 import { cn } from '@/utils/cn'
-import {
-  listRolesOptions,
-  listUsersOptions,
-  useUpdateUserMutation,
-} from '@/utils/query-options'
+import {useUpdateUserMutation,} from '@/utils/query-options/users.ts'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQuery } from '@tanstack/react-query'
-import { ReactNode, useId } from 'react'
+import { useId } from 'react'
 import { useForm, UseFormReturn } from 'react-hook-form'
 import { z } from 'zod'
 import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react'
+import {listRolesOptions} from "@/utils/query-options/roles.ts";
 
 const editUserSchema = z.object({
   login: z.string().min(1, 'Поле Логин не может быть пустым'),

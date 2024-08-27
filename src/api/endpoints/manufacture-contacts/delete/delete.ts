@@ -4,7 +4,7 @@ export interface DeleteManufactureContactParams{
     manufactureContactId: number;
 }
 
-export const deleteManufacture = createRequest(
+export const deleteManufactureContact = createRequest(
     (api, params: DeleteManufactureContactParams) => {
         return api.delete(`manufacture-contacts/${params.manufactureContactId}`).json();
     }

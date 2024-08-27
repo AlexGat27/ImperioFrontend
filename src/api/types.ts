@@ -22,43 +22,46 @@ export interface RoleDto {
   Тут все про мануфактуры, сначала идут интерфейсы неэкспортированные, потом экспортированные
 */
 
-export interface ManufactureModel{
-  id: number | null
-  name: string | null
-  website: string | null
-  id_region: number | null
-  id_city: number | null
-  id_district: number | null
-  address_loading: string | null
-  note: string | null
-  create_your_project: boolean | null
-  is_work: boolean | null
+export interface ManufacturesDto{
+  id: number
+  name: string
+  website: string
+  region: string
+  city: string
+  district: string
+  address_loading: string
+  note: string
+  create_your_project: boolean
+  is_work: boolean
+  emails: string[]
+  contacts: string[]
 }
 
 export interface ManufactureContactsModel{
-  id: number | null
-  id_manufacture: number | null
+  id: number
+  id_manufacture: number
   telephone: string
   name_personal: string
   notes: string
 }
 
-export interface ManufacturesDto {
-  model: ManufactureModel
-  emails: string[]
-  contacts: string[]
-}
+// export interface ManufacturesDto {
+//   model: ManufactureModel
+//   emails: string[]
+//   contacts: string[]
+// }
 
-export interface SearchManufacturesDto{
-  manufacture_name: string
-  website: string
-  category: string
-  region: string
-  city: string
-  district: string
-  emails: string[]
-  contacts: ManufactureContactsModel[]
-}
+// export interface SearchManufacturesDto{
+//   id: number
+//   name: string
+//   website: string
+//   category: string
+//   region: string
+//   city: string
+//   district: string
+//   emails: string[]
+//   contacts: ManufactureContactsModel[]
+// }
 
 
 /*
@@ -82,8 +85,8 @@ export interface ProductsDto{
 export interface CarsLogistDto{
   name: string
   telephone: string
-  email: string | null
-  notes: string | null
+  email: string
+  notes: string
   region_names: string[]
   car_type_names: string[]
 }

@@ -13,7 +13,7 @@ import {
   useCreateUserMutation,
   useDeletUserMutation,
   useUpdateUserMutation,
-} from '@/utils/query-options'
+} from '@/utils/query-options/users.ts'
 import { useQuery } from '@tanstack/react-query'
 import { EditUserFormDialog } from './components'
 import {

@@ -1,5 +1,5 @@
 import {createRequest} from "@/api/request.ts";
-import {SearchManufacturesDto} from "@/api/types.ts";
+import {ManufacturesDto} from "@/api/types.ts";
 
 export interface SearchManufacturesParams{
     category: string | null
@@ -7,6 +7,7 @@ export interface SearchManufacturesParams{
     region: string | null
     city: string | null
 }
+export type SearchManufacturesList = ManufacturesDto[];
 
 export const searchManufactures = createRequest(
     (api, params: SearchManufacturesParams) => {
@@ -14,6 +15,6 @@ export const searchManufactures = createRequest(
             .url('/manufactures/search')
             .query(params) // Добавляем queryParams
             .get() // Выполняем GET-запрос
-            .json<SearchManufacturesDto>(); // Преобразуем ответ в JSON
+            .json<SearchManufacturesList>(); // Преобразуем ответ в JSON
     }
 )

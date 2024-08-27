@@ -1,13 +1,12 @@
 import {createRequest} from "@/api/request.ts";
-import {ManufactureModel} from "@/api/types.ts";
+import {ManufacturesDto} from "@/api/types.ts";
 
-export interface UpdateManufactureParams extends ManufactureModel{
-    id: number
-    emails: string[] | null
-}
+export type UpdateManufactureParams = Partial<
+    Pick<ManufacturesDto, 'name' | 'website' | 'address_loading' | 'create_your_project' | 'note' | 'id' | 'emails'>
+>
 
 export const updateManufactureRequest = createRequest(
-    (api, params: UpdateManufactureParams) => {
-        return api.put(params, `/manufactures/${params.id}`).json<UpdateManufactureParams>()
+    (api, {id, ...params}: UpdateManufactureParams) => {
+        return api.put(params, `/manufactures/${id}`).json<UpdateManufactureParams>()
     }
 )

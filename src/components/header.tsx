@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { Button } from './ui/button'
-import { useLogoutMutation } from '@/utils/query-options'
+import { useLogoutMutation } from '@/utils/query-options/auth.ts'
 
 export const Header = () => {
   const logoutMutation = useLogoutMutation()

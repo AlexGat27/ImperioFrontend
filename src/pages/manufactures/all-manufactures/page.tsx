@@ -1,8 +1,9 @@
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table.tsx";
 import {useQuery} from "@tanstack/react-query";
-import {listManufacturesOptions, searchManufacturesOptions} from "@/utils/query-options/manufactures.ts";
-import {Badge} from "@/components/ui/badge.tsx";
-import {SearchManufacturesParams} from "@/api/endpoints";
+import {
+    listManufacturesOptions,
+    useDeleteManufactureMutation
+} from "@/utils/query-options/manufactures.ts";
 import {ManufacturesDto} from "@/api/types.ts";
 import {useState} from "react";
 import {
@@ -13,7 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {EllipsisVerticalIcon, TrashIcon, UserIcon} from "lucide-react";
-import {useDeletUserMutation} from "@/utils/query-options/users.ts";
 import {
     AlertDialog, AlertDialogCancel,
     AlertDialogContent,
@@ -21,7 +21,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle
 } from "@/components/ui/alert-dialog.tsx";
-import {EditManufactureFormDialog} from "@/pages/manufactures/all-manufactures/components";
+import {CreateManufactureFormDialog, EditManufactureFormDialog} from "@/pages/manufactures/all-manufactures/components";
 
 
 const ManufacturesTable = () => {
@@ -123,7 +123,7 @@ const DeleteManufactureDialog = ({
     onOpenChange: (open: boolean) => void
     manufactureId: number
 }) => {
-    const deleteManufactureMutation = useDeletUserMutation(manufactureId)
+    const deleteManufactureMutation = useDeleteManufactureMutation(manufactureId)
 
     return (
         <AlertDialog open={open} onOpenChange={onOpenChange}>
@@ -155,9 +155,21 @@ const DeleteManufactureDialog = ({
 }
 
 export const ManufacturesPage = () => {
+    const [isCreateOpen, setIsCreateOpen] = useState(false);
     return (
-        <main className="flex flex-col ">
-            <ManufacturesTable />
+        <main className="flex flex-col p-4">
+            {/* Кнопка для создания нового производителя */}
+            <div className="mb-4">
+                <Button onClick={() => setIsCreateOpen(true)}>Создать производителя</Button>
+            </div>
+
+            <ManufacturesTable/>
+
+            {/* Диалоговое окно для создания нового производителя */}
+            <CreateManufactureFormDialog
+                open={isCreateOpen}
+                onOpenChange={setIsCreateOpen}
+            />
         </main>
     )
 }

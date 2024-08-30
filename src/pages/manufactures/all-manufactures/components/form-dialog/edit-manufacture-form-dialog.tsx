@@ -67,12 +67,12 @@ export const EditManufactureFormDialog = ({
                             updateManufactureMutation.mutateAsync(data),
                         )}
                         className="flex flex-col gap-2">
-                        <NameField form={form} isPending={updateManufactureMutation.isPending} />
+                        <NameField control={form.control} isPending={updateManufactureMutation.isPending} />
                         <EmailsField form={form} isPending={updateManufactureMutation.isPending} />
-                        <WebsiteField form={form} isPending={updateManufactureMutation.isPending} />
-                        <AddressLoadingField form={form} isPending={updateManufactureMutation.isPending}/>
-                        <NoteField form={form} isPending={updateManufactureMutation.isPending}/>
-                        <CreateYourProjectField form={form} isPending={updateManufactureMutation.isPending}/>
+                        <WebsiteField control={form.control} isPending={updateManufactureMutation.isPending} />
+                        <AddressLoadingField control={form.control} isPending={updateManufactureMutation.isPending}/>
+                        <NoteField control={form.control} isPending={updateManufactureMutation.isPending}/>
+                        <CreateYourProjectField control={form.control} isPending={updateManufactureMutation.isPending}/>
                     </form>
                 </Form>
                 <DialogFooter>

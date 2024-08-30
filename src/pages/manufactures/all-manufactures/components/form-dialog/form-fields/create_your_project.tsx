@@ -1,19 +1,16 @@
-import {UseFormReturn} from "react-hook-form";
-import {z} from "zod";
 import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form.tsx";
-import {editManufactureSchema} from "@/pages/manufactures/all-manufactures/components";
 import {CheckboxInput} from "@/components/ui/input.tsx";
 
 export const CreateYourProjectField = ({
-                                    form,
+                                    control,
                                     isPending,
                                 }: {
-    form: UseFormReturn<z.infer<typeof editManufactureSchema>>
+    control: any
     isPending: boolean
 }) => {
     return (
         <FormField
-            control={form.control}
+            control={control}
             name="create_your_project"
             render={({ field }) => (
                 <FormItem>

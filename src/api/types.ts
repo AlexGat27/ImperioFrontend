@@ -34,34 +34,28 @@ export interface ManufacturesDto{
   create_your_project: boolean
   is_work: boolean
   emails: string[]
-  contacts: string[]
+  contacts: ManufactureContactsModel[]
 }
 
 export interface ManufactureContactsModel{
   id: number
-  id_manufacture: number
+  // id_manufacture: number
   telephone: string
   name_personal: string
   notes: string
 }
 
-// export interface ManufacturesDto {
-//   model: ManufactureModel
-//   emails: string[]
-//   contacts: string[]
-// }
-
-// export interface SearchManufacturesDto{
-//   id: number
-//   name: string
-//   website: string
-//   category: string
-//   region: string
-//   city: string
-//   district: string
-//   emails: string[]
-//   contacts: ManufactureContactsModel[]
-// }
+export interface SearchManufacturesDto{
+  id: number
+  name: string
+  website: string
+  category: string
+  region: string
+  city: string
+  district: string
+  emails: string[]
+  contacts: ManufactureContactsModel[]
+}
 
 
 /*

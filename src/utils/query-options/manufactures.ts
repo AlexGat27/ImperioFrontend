@@ -16,9 +16,9 @@ export const listManufacturesOptions = () =>
 // Хук для поиска среди производителей
 export const searchManufacturesOptions = (searchParams: SearchManufacturesParams) =>
     queryOptions({
-        queryKey: ['manufactures'],
+        queryKey: ['manufactures', searchParams],
         queryFn: () => api.searchManufactures(searchParams),
-        enabled: !!searchParams,
+        enabled: !!searchParams && !!searchParams.category,
     })
 
 // Хук для создания производителя

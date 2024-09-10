@@ -8,6 +8,7 @@ import {
     DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import {useState} from "react";
 
 // Типы для опций в dropdown
 type Option = {
@@ -33,35 +34,37 @@ export const DropdownMenuField = ({
     disabled?: boolean;
     onChange?: (value: null | number) => void; // Функция onChange
 }) => {
-    const { field: { value, onChange: fieldOnChange } } = useController({
+    const { field: {onChange: fieldOnChange } } = useController({
         name,
         control,
     });
+    const [valueLabel, setValueLabel] = useState<string | null>(null);
 
     // Обработка изменения выбора
-    const handleChange = (value: null | number) => {
-        fieldOnChange(value); // Обновляем значение в форме
+    const handleChange = (option: null | Option) => {
+        fieldOnChange(option?.value); // Обновляем значение в форме
+        setValueLabel(option?.label || null);
         if (onChange) {
-            onChange(value); // Вызываем дополнительный обработчик
+            onChange(option?.value || null); // Вызываем дополнительный обработчик
         }
     };
 
     return (
         <div className="form-group">
-            <label className="block text-sm font-medium text-gray-700">{label}</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button disabled={disabled}>
-                        {value || placeholder || `Выберите ${label.toLowerCase()}`}
+                        {valueLabel || placeholder || `Выберите ${label.toLowerCase()}`}
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-48">
+                <DropdownMenuContent className="w-48 max-h-64 overflow-y-auto">
                     <DropdownMenuLabel>{label}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     {options.map((option) => (
                         <DropdownMenuItem
                             key={option.value}
-                            onClick={() => handleChange(option.value)}
+                            onClick={() => handleChange(option)}
                         >
                             {option.label}
                         </DropdownMenuItem>

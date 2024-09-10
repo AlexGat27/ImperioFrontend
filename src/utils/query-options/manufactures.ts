@@ -36,7 +36,9 @@ export const useUpdateManufactureMutation = (id: number) => {
     const queryClient = useQueryClient()
 
     return useMutation({
-        mutationFn: (data: Omit<UpdateManufactureParams, 'id'>) => api.updateManufactureRequest({id, ...data}),
+        mutationFn: (data: Omit<UpdateManufactureParams, 'id'>) => {
+            return api.updateManufactureRequest({id, ...data})
+        },
         onSuccess: () => queryClient.invalidateQueries({ queryKey: ['manufactures'] }),
     })
 }

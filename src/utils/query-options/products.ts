@@ -4,7 +4,7 @@ import { api } from "@/api"
 
 export const searchProductsOptions = (searchParams: SearchProductsParams) =>
     queryOptions({
-        queryKey: ['products'],
+        queryKey: ['products', searchParams as string],
         queryFn: () => api.searchProducts(searchParams),
-        enabled: !!searchParams,
+        enabled: !!searchParams.search_query,
     })

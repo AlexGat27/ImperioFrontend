@@ -1,12 +1,13 @@
-import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form.tsx";
-import {CheckboxInput} from "@/components/ui/input.tsx";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form.tsx";
+import { CheckboxInput } from "@/components/ui/input.tsx";
+import { Controller } from "react-hook-form";
 
 export const CreateYourProjectField = ({
-                                    control,
-                                    isPending,
-                                }: {
-    control: any
-    isPending: boolean
+                                           control,
+                                           isPending,
+                                       }: {
+    control: any;
+    isPending: boolean;
 }) => {
     return (
         <FormField
@@ -16,15 +17,23 @@ export const CreateYourProjectField = ({
                 <FormItem>
                     <FormLabel>Создайте свой проект</FormLabel>
                     <FormControl>
-                        <CheckboxInput
-                            checked={field.value} // Связываем значение чекбокса с состоянием формы
-                            disabled={isPending} // Управляем состоянием disabled
-                            name={field.name} // Передаем имя поля формы
+                        {/* Используем Controller для связи с react-hook-form */}
+                        <Controller
+                            control={control}
+                            name={field.name}
+                            render={({ field: controllerField }) => (
+                                <CheckboxInput
+                                    checked={controllerField.value}
+                                    onChange={controllerField.onChange} // Устанавливаем onChange для обновления значения
+                                    disabled={isPending}
+                                    name={controllerField.name} // Передаем имя поля формы
+                                />
+                            )}
                         />
                     </FormControl>
                     <FormMessage />
                 </FormItem>
             )}
         />
-    )
-}
+    );
+};

@@ -16,7 +16,7 @@ export const WebsiteField = ({
                 <FormItem>
                     <FormLabel>Вебсайт</FormLabel>
                     <FormControl>
-                        <Input type="url" disabled={isPending} {...field} />
+                        <Input disabled={isPending} {...field} />
                     </FormControl>
                     <FormMessage />
                 </FormItem>

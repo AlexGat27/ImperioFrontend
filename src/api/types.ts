@@ -95,5 +95,5 @@ export interface TypeCarsDto{
 export interface CityDto{
   id: number
   name: string
-  parent_id: number
+  parentid: number
 }

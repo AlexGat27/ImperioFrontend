@@ -1,5 +1,5 @@
 // import { NotFoundPage } from '@/pages/not-found/page'
-import { profileOptions } from '@/utils/query-options/users.ts'
+import { profileOptions } from '@/utils/query-options/auth.ts'
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_anonymous')({

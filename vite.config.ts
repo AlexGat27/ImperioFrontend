@@ -21,7 +21,7 @@ export default ({ mode }: { mode: string }) => {
     },
     server: {
       proxy: {
-        '/api': process.env.VITE_API_URL as string,
+        '/api': 'http://localhost:8080',
       },
     },
   })

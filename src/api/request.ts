@@ -11,16 +11,16 @@ export type WretchError<ErrorBody> = Error & {
 
 wretch.options({ mode: 'cors', credentials: 'include' })
 
-const API_URL = import.meta.env.VITE_API_BASE as string
+// const API_URL = import.meta.env.VITE_API_BASE as string
 
 const createRequestInstance = () => {
   let token: string | null = null
-  const api = wretch(`${API_URL}/api/v1`)
+  const api = wretch(`/api/v1`)
     .addon(QueryStringAddon)
     .addon(FormDataAddon)
     .catcher(401, async (originalError, originalRequest) => {
       try {
-        const refreshResult = await wretch(`${API_URL}/api/v1/refresh-tokens`)
+        const refreshResult = await wretch(`/api/v1/refresh-tokens`)
           .get()
           .json<{ access_token: string }>()
 

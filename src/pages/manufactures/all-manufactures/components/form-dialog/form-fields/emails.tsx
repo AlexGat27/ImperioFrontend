@@ -5,54 +5,65 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input.tsx";
 import { Button } from "@/components/ui/button.tsx";
 
-// Обновляем пропсы
+// Correct Prop Types
 export const EmailsField = ({
                                 form,
                                 isPending,
                             }: {
-    form: UseFormReturn<z.infer<any>>;  // Используем any для поддержки различных схем
+    form: UseFormReturn<z.infer<any>>;  // Generic typing to adapt to any Zod schema
     isPending: boolean;
 }) => {
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState<string>('');  // Email input state
 
+    // Function to add an email to the form
     const handleAddEmail = () => {
-        const currentEmails = form.getValues('emails');
-        form.setValue('emails', [...currentEmails, email]);
-        setEmail('');
+        if (email) {
+            const currentEmails = form.getValues('emails') || [];  // Ensure emails list is initialized
+            form.setValue('emails', [...currentEmails, email]);  // Add new email
+            setEmail('');  // Reset input field
+        }
     };
 
+    // Function to remove a specific email
     const handleRemoveEmail = (emailToRemove: string) => {
-        const currentEmails = form.getValues('emails');
-        form.setValue('emails', currentEmails.filter((e: any) => e !== emailToRemove));
+        const currentEmails = form.getValues('emails') || [];  // Fetch current emails list
+        form.setValue('emails', currentEmails.filter((e) => e !== emailToRemove));  // Remove email
     };
 
     return (
         <FormField
             control={form.control}
-            name="emails"  // Исправляем имя поля
-            render={({ field }) => (
+            name="emails"
+            render={({ field, fieldState }) => (
                 <FormItem>
                     <FormLabel>Электронные почты</FormLabel>
                     <FormControl>
-                        <Input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Введите email"
-                            disabled={isPending}
-                        />
-                        <Button type="button" onClick={handleAddEmail} disabled={isPending}>
-                            Добавить
-                        </Button>
+                        <div className="flex space-x-2">
+                            <Input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}  // Update input field
+                                placeholder="Введите email"
+                                disabled={isPending}
+                            />
+                            <Button
+                                type="button"
+                                onClick={handleAddEmail}
+                                disabled={isPending || !email}  // Disable if no input or pending
+                            >
+                                Добавить
+                            </Button>
+                        </div>
                     </FormControl>
-                    <FormMessage />
-                    <div>
-                        {field.value.map((email: string) => (
-                            <div key={email} className="flex items-center">
+                    {fieldState.error && <FormMessage>{fieldState.error.message}</FormMessage>}
+                    <div className="mt-2 space-y-2">
+                        {field.value && field.value.map((email: string, index: number) => (
+                            <div key={index} className="flex items-center justify-between">
                                 <span>{email}</span>
                                 <Button
                                     type="button"
-                                    onClick={() => handleRemoveEmail(email)}
+                                    variant="outline"
+                                    onClick={() => handleRemoveEmail(email)}  // Remove email
                                     disabled={isPending}
                                 >
                                     Удалить

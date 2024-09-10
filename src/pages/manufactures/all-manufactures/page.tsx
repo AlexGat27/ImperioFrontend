@@ -51,7 +51,7 @@ const ManufacturesTable = () => {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {manufacturesQuery.data.map((manufacture) => (
+                {manufacturesQuery.data.filter(manufacture => manufacture.is_work).map((manufacture) => (
                     <TableRow key={manufacture.id}>
                         <TableCell>{manufacture.id}</TableCell>
                         <TableCell>{manufacture.name}</TableCell>
@@ -94,7 +94,7 @@ function ActionsDropdownMenu({ manufacture }: { manufacture: ManufacturesDto }) 
                     <DropdownMenuGroup onClick={() => setIsRemoveOpen(true)}>
                         <DropdownMenuItem className="text-red-500 focus:text-red-600">
                             <TrashIcon className="mr-2 h-4 w-4" />
-                            <span>Удалить пользователя</span>
+                            <span>Удалить производителя</span>
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
                 </DropdownMenuContent>
@@ -155,21 +155,13 @@ const DeleteManufactureDialog = ({
 }
 
 export const ManufacturesPage = () => {
-    const [isCreateOpen, setIsCreateOpen] = useState(false);
     return (
-        <main className="flex flex-col p-4">
-            {/* Кнопка для создания нового производителя */}
-            <div className="mb-4">
-                <Button onClick={() => setIsCreateOpen(true)}>Создать производителя</Button>
+        <main className="flex flex-col">
+            <div className="p-4">
+                {/* Диалоговое окно для создания нового производителя */}
+                <CreateManufactureFormDialog/>
             </div>
-
             <ManufacturesTable/>
-
-            {/* Диалоговое окно для создания нового производителя */}
-            <CreateManufactureFormDialog
-                open={isCreateOpen}
-                onOpenChange={setIsCreateOpen}
-            />
         </main>
     )
 }

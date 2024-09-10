@@ -18,7 +18,18 @@ import { Route as AnonymousImport } from './../routes/_anonymous'
 
 // Create Virtual Routes
 
-const AuthenticatedIndexLazyImport = createFileRoute('/_authenticated/')()
+const AuthenticatedIndexLazyImport = createFileRoute(
+    '/_authenticated/'
+)()
+const AuthenticatedSearchProductsLazyImport = createFileRoute(
+  '/_authenticated/search-products',
+)()
+const AuthenticatedSearchManufacturesLazyImport = createFileRoute(
+  '/_authenticated/search-manufactures',
+)()
+const AuthenticatedManufacturesLazyImport = createFileRoute(
+  '/_authenticated/manufactures',
+)()
 const AnonymousLoginLazyImport = createFileRoute('/_anonymous/login')()
 
 // Create/Update Routes
@@ -39,6 +50,34 @@ const AuthenticatedIndexLazyRoute = AuthenticatedIndexLazyImport.update({
 } as any).lazy(() =>
   import('./../routes/_authenticated/index.lazy').then((d) => d.Route),
 )
+
+const AuthenticatedSearchProductsLazyRoute =
+  AuthenticatedSearchProductsLazyImport.update({
+    path: '/search-products',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any).lazy(() =>
+    import('./../routes/_authenticated/search-products.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedSearchManufacturesLazyRoute =
+  AuthenticatedSearchManufacturesLazyImport.update({
+    path: '/search-manufactures',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any).lazy(() =>
+    import('./../routes/_authenticated/search-manufactures.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedManufacturesLazyRoute =
+  AuthenticatedManufacturesLazyImport.update({
+    path: '/manufactures',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any).lazy(() =>
+    import('./../routes/_authenticated/manufactures.lazy').then((d) => d.Route),
+  )
 
 const AnonymousLoginLazyRoute = AnonymousLoginLazyImport.update({
   path: '/login',
@@ -72,6 +111,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AnonymousLoginLazyImport
       parentRoute: typeof AnonymousImport
     }
+    '/_authenticated/manufactures': {
+      id: '/_authenticated/manufactures'
+      path: '/manufactures'
+      fullPath: '/manufactures'
+      preLoaderRoute: typeof AuthenticatedManufacturesLazyImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/search-manufactures': {
+      id: '/_authenticated/search-manufactures'
+      path: '/search-manufactures'
+      fullPath: '/search-manufactures'
+      preLoaderRoute: typeof AuthenticatedSearchManufacturesLazyImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/search-products': {
+      id: '/_authenticated/search-products'
+      path: '/search-products'
+      fullPath: '/search-products'
+      preLoaderRoute: typeof AuthenticatedSearchProductsLazyImport
+      parentRoute: typeof AuthenticatedImport
+    }
     '/_authenticated/': {
       id: '/_authenticated/'
       path: '/'
@@ -87,6 +147,9 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   AnonymousRoute: AnonymousRoute.addChildren({ AnonymousLoginLazyRoute }),
   AuthenticatedRoute: AuthenticatedRoute.addChildren({
+    AuthenticatedManufacturesLazyRoute,
+    AuthenticatedSearchManufacturesLazyRoute,
+    AuthenticatedSearchProductsLazyRoute,
     AuthenticatedIndexLazyRoute,
   }),
 })
@@ -112,12 +175,27 @@ export const routeTree = rootRoute.addChildren({
     "/_authenticated": {
       "filePath": "_authenticated.tsx",
       "children": [
+        "/_authenticated/manufactures",
+        "/_authenticated/search-manufactures",
+        "/_authenticated/search-products",
         "/_authenticated/"
       ]
     },
     "/_anonymous/login": {
       "filePath": "_anonymous/login.lazy.tsx",
       "parent": "/_anonymous"
+    },
+    "/_authenticated/manufactures": {
+      "filePath": "_authenticated/manufactures.lazy.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/search-manufactures": {
+      "filePath": "_authenticated/search-manufactures.lazy.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/search-products": {
+      "filePath": "_authenticated/search-products.lazy.tsx",
+      "parent": "/_authenticated"
     },
     "/_authenticated/": {
       "filePath": "_authenticated/index.lazy.tsx",

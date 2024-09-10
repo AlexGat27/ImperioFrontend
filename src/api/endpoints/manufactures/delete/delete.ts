@@ -15,6 +15,6 @@ export interface ErrorDeleteManufactureResponse{
 
 export const deleteManufacture = createRequest(
     (api, params: DeleteManufactureParams) => {
-        return api.delete(`manufactures/${params.manufactureId}`).json();
+        return api.delete(`/manufactures/${params.manufactureId}`).json();
     }
 )

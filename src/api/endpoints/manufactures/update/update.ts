@@ -7,6 +7,6 @@ export type UpdateManufactureParams = Partial<
 
 export const updateManufactureRequest = createRequest(
     (api, {id, ...params}: UpdateManufactureParams) => {
-        return api.put(params, `/manufactures/${id}`).json<UpdateManufactureParams>()
+        return api.put(params, `/manufactures/${id}`).json<ManufacturesDto>()
     }
 )

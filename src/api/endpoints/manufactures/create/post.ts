@@ -10,10 +10,11 @@ export interface CreateManufactureParams{
     id_district: number
     id_region: number
     id_city: number
+    is_work: boolean
 }
 
 export const createManufacture = createRequest(
     (api, params: CreateManufactureParams) => {
-        return api.post(params, '/manufactures').json<CreateManufactureParams>()
+        return api.post(params, '/manufactures').json()
     },
 )

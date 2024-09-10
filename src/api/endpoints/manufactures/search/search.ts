@@ -1,7 +1,7 @@
 import {createRequest} from "@/api/request.ts";
 import {SearchManufacturesDto} from "@/api/types.ts";
 
-interface ManufacturesParams{
+export interface ManufacturesParams{
     category: string | null
     district: string | null
     region: string | null

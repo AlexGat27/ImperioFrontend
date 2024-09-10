@@ -15,7 +15,7 @@ export const SearchManufacturesTable = (params: SearchManufacturesParams) => {
     }
 
     return (
-        <Table>
+        <Table className="mt-4">
             <TableHeader>
                 <TableRow>
                     <TableHead>Название категории</TableHead>

@@ -26,12 +26,16 @@ import {UpdateManufactureParams} from "@/api/endpoints";
 
 export const editManufactureSchema = z.object({
     name: z.string().min(1, 'Поле Название компании не может быть пустым'),
-    email: z.array(z.string().email('Неверный формат почты')),
+    emails: z.array(z.string().email('Неверный формат почты')),
     website: z.string(),
     address_loading: z.string(),
     note: z.string(),
     create_your_project: z.boolean(),
 })
+
+const Separator = () => (
+    <div className="border-t border-gray-300 my-2" />
+);
 
 export const EditManufactureFormDialog = ({
                                               id,
@@ -53,7 +57,7 @@ export const EditManufactureFormDialog = ({
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-auto">
                 <DialogHeader>
                     <DialogTitle>Редактирование компании</DialogTitle>
                     <DialogDescription>
@@ -64,14 +68,19 @@ export const EditManufactureFormDialog = ({
                     <form
                         id={formId}
                         onSubmit={form.handleSubmit((data) =>
-                            updateManufactureMutation.mutateAsync(data),
+                            updateManufactureMutation.mutateAsync(data)
                         )}
                         className="flex flex-col gap-2">
                         <NameField control={form.control} isPending={updateManufactureMutation.isPending} />
+                        <Separator />
                         <EmailsField form={form} isPending={updateManufactureMutation.isPending} />
+                        <Separator />
                         <WebsiteField control={form.control} isPending={updateManufactureMutation.isPending} />
+                        <Separator />
                         <AddressLoadingField control={form.control} isPending={updateManufactureMutation.isPending}/>
+                        <Separator />
                         <NoteField control={form.control} isPending={updateManufactureMutation.isPending}/>
+                        <Separator />
                         <CreateYourProjectField control={form.control} isPending={updateManufactureMutation.isPending}/>
                     </form>
                 </Form>
